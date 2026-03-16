@@ -32,15 +32,12 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 
 export default function Stats() {
   return (
-    <section style={{ padding: "5rem 2rem", position: "relative" }}>
+    <section style={{ padding: "5rem 2rem", position: "relative", overflow: "hidden" }}>
+      {/* Single background orb */}
+      <div style={{ position: "absolute", top: "-2rem", right: "5%", width: "28rem", height: "28rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.22) 0%, transparent 65%)", filter: "blur(20px)", animation: "floatDrift 14s ease-in-out infinite", pointerEvents: "none" }} />
       <div
-        style={{
-          maxWidth: "72rem",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "1.5rem",
-        }}
+        style={{ maxWidth: "72rem", margin: "0 auto" }}
+        className="grid-4col"
       >
         {stats.map((stat, i) => (
           <motion.div
@@ -50,6 +47,7 @@ export default function Stats() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.12, ease: "easeOut" }}
             style={{
+              position: "relative",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -59,14 +57,29 @@ export default function Stats() {
               borderRadius: "1rem",
               border: "1px solid rgba(59,130,246,0.2)",
               background: "#111827",
+              overflow: "hidden",
             }}
           >
+            {/* Shimmer top accent */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: "20%",
+                right: "20%",
+                height: "2px",
+                borderRadius: "0 0 2px 2px",
+                background: "linear-gradient(90deg, transparent, #60A5FA, #38BDF8, transparent)",
+                animation: "shimmer 3s ease-in-out infinite",
+                animationDelay: `${i * 0.4}s`,
+              }}
+            />
             <span
               style={{
                 fontSize: "3rem",
                 fontWeight: 700,
                 fontFamily: "var(--font-space-grotesk)",
-                background: "linear-gradient(135deg, #3B82F6, #6D5CF6)",
+                background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 lineHeight: 1,

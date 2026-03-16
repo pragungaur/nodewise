@@ -77,8 +77,8 @@ export default function ParticleCanvas() {
         }
 
         const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 2);
-        grad.addColorStop(0, "rgba(109, 92, 246, 0.9)");
-        grad.addColorStop(1, "rgba(59, 130, 246, 0)");
+        grad.addColorStop(0, "rgba(56, 189, 248, 0.9)");
+        grad.addColorStop(1, "rgba(96, 165, 250, 0)");
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.radius * 2, 0, Math.PI * 2);
         ctx.fillStyle = grad;
@@ -94,8 +94,8 @@ export default function ParticleCanvas() {
           if (dist < CONNECT_DIST) {
             const alpha = (1 - dist / CONNECT_DIST) * 0.45;
             const grad = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
-            grad.addColorStop(0, `rgba(59, 130, 246, ${alpha})`);
-            grad.addColorStop(1, `rgba(109, 92, 246, ${alpha})`);
+            grad.addColorStop(0, `rgba(96, 165, 250, ${alpha})`);
+            grad.addColorStop(1, `rgba(56, 189, 248, ${alpha})`);
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -118,7 +118,7 @@ export default function ParticleCanvas() {
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(n.x, n.y);
-            ctx.strokeStyle = `rgba(99, 160, 255, ${alpha})`;
+            ctx.strokeStyle = `rgba(96, 165, 250, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -126,8 +126,8 @@ export default function ParticleCanvas() {
 
         // Outer glow ring
         const glowGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 40);
-        glowGrad.addColorStop(0, "rgba(59, 130, 246, 0.18)");
-        glowGrad.addColorStop(1, "rgba(59, 130, 246, 0)");
+        glowGrad.addColorStop(0, "rgba(96, 165, 250, 0.18)");
+        glowGrad.addColorStop(1, "rgba(96, 165, 250, 0)");
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 40, 0, Math.PI * 2);
         ctx.fillStyle = glowGrad;
@@ -136,7 +136,7 @@ export default function ParticleCanvas() {
         // Core dot
         const coreGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 5);
         coreGrad.addColorStop(0, "rgba(255, 255, 255, 0.95)");
-        coreGrad.addColorStop(1, "rgba(59, 130, 246, 0)");
+        coreGrad.addColorStop(1, "rgba(96, 165, 250, 0)");
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 5, 0, Math.PI * 2);
         ctx.fillStyle = coreGrad;

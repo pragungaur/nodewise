@@ -13,7 +13,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" style={{ padding: "6rem 2rem" }}>
+    <section id="contact" style={{ padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
+      {/* Animated background orbs */}
+      <div style={{ position: "absolute", top: "2rem", left: "3%", width: "26rem", height: "26rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.24) 0%, transparent 65%)", filter: "blur(20px)", animation: "floatDrift 13s ease-in-out infinite", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "2rem", right: "3%", width: "22rem", height: "22rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.22) 0%, transparent 65%)", filter: "blur(18px)", animation: "floatY 15s ease-in-out infinite 6s", pointerEvents: "none" }} />
       <div style={{ maxWidth: "42rem", margin: "0 auto" }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -30,7 +33,7 @@ export default function Contact() {
               textTransform: "uppercase",
               display: "block",
               marginBottom: "1rem",
-              background: "linear-gradient(90deg, #3B82F6, #6D5CF6)",
+              background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -75,7 +78,7 @@ export default function Contact() {
               width: "15rem",
               height: "15rem",
               borderRadius: "50%",
-              background: "#6D5CF6",
+              background: "#38BDF8",
               filter: "blur(80px)",
               opacity: 0.08,
               pointerEvents: "none",
@@ -97,7 +100,7 @@ export default function Contact() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "linear-gradient(135deg, #3B82F6, #6D5CF6)",
+                  background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
                 }}
               >
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={2}>
@@ -111,7 +114,7 @@ export default function Contact() {
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
+              <div className="grid-2col">
                 {[
                   { key: "name", label: "Name", type: "text", placeholder: "Your name" },
                   { key: "email", label: "Email", type: "email", placeholder: "your@email.com" },
@@ -126,6 +129,7 @@ export default function Contact() {
                       value={form[field.key as keyof typeof form]}
                       onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
                       placeholder={field.placeholder}
+                      className="input-field"
                       style={{
                         width: "100%",
                         background: "#0A0A0F",
@@ -136,6 +140,7 @@ export default function Contact() {
                         color: "#F9FAFB",
                         outline: "none",
                         boxSizing: "border-box",
+                        transition: "border-color 0.2s, box-shadow 0.2s",
                       }}
                     />
                   </div>
@@ -152,6 +157,7 @@ export default function Contact() {
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="Tell us about your project..."
+                  className="input-field"
                   style={{
                     width: "100%",
                     background: "#0A0A0F",
@@ -163,6 +169,7 @@ export default function Contact() {
                     outline: "none",
                     resize: "none",
                     boxSizing: "border-box",
+                    transition: "border-color 0.2s, box-shadow 0.2s",
                   }}
                 />
               </div>
@@ -180,7 +187,7 @@ export default function Contact() {
                   fontWeight: 600,
                   fontSize: "0.9rem",
                   cursor: "pointer",
-                  background: "linear-gradient(135deg, #3B82F6, #6D5CF6)",
+                  background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
                   boxShadow: "0 0 30px rgba(59,130,246,0.3)",
                 }}
               >

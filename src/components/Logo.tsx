@@ -10,8 +10,8 @@ export default function Logo({ size = 32 }: { size?: number }) {
       >
         <defs>
           <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#8B5CF6" />
+            <stop offset="0%" stopColor="#60A5FA" />
+            <stop offset="100%" stopColor="#38BDF8" />
           </linearGradient>
         </defs>
         {/* Node graph: 3 nodes connected */}
@@ -30,7 +30,7 @@ export default function Logo({ size = 32 }: { size?: number }) {
         <span className="text-white">Node</span>
         <span
           style={{
-            background: "linear-gradient(90deg, #3B82F6, #8B5CF6)",
+            background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}

@@ -4,8 +4,12 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section id="about" style={{ padding: "6rem 2rem" }}>
+    <section id="about" style={{ padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
+      {/* Animated background orbs — reduced to 2 */}
+      <div style={{ position: "absolute", top: "2rem", right: "3%", width: "30rem", height: "30rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 65%)", filter: "blur(22px)", animation: "floatDrift 18s ease-in-out infinite 1s", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "2rem", left: "3%", width: "24rem", height: "24rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.16) 0%, transparent 65%)", filter: "blur(18px)", animation: "floatY 11s ease-in-out infinite 4s", pointerEvents: "none" }} />
       <div
+        className="grid-about"
         style={{
           maxWidth: "72rem",
           margin: "0 auto",
@@ -30,7 +34,7 @@ export default function About() {
                 position: "absolute",
                 inset: "-4px",
                 borderRadius: "1.5rem",
-                background: "linear-gradient(135deg, #3B82F6, #6D5CF6)",
+                background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
                 filter: "blur(20px)",
                 opacity: 0.45,
               }}
@@ -54,21 +58,25 @@ export default function About() {
               {/* Avatar */}
               <div
                 style={{
-                  width: "7rem",
-                  height: "7rem",
+                  width: "8rem",
+                  height: "8rem",
                   borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "2rem",
-                  fontWeight: 700,
-                  color: "#fff",
-                  background: "linear-gradient(135deg, #3B82F6, #6D5CF6)",
-                  fontFamily: "var(--font-space-grotesk)",
-                  boxShadow: "0 0 30px rgba(59,130,246,0.4)",
+                  overflow: "hidden",
+                  boxShadow: "0 0 30px rgba(96,165,250,0.4)",
+                  border: "2px solid rgba(96,165,250,0.3)",
+                  flexShrink: 0,
                 }}
               >
-                PG
+                <img
+                  src="/650922573_18102662221902112_610984739140199854_n.jpg"
+                  alt="Pragun Gaur"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "60% 28%",
+                  }}
+                />
               </div>
               <div style={{ textAlign: "center", padding: "0 1rem" }}>
                 <p style={{ color: "#fff", fontWeight: 600, fontSize: "1.125rem", fontFamily: "var(--font-space-grotesk)" }}>
@@ -85,7 +93,7 @@ export default function About() {
                   fontSize: "0.75rem",
                   fontWeight: 600,
                   color: "#fff",
-                  background: "linear-gradient(90deg, #3B82F6, #6D5CF6)",
+                  background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
                 }}
               >
                 13-Year-Old Founder
@@ -109,7 +117,7 @@ export default function About() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                background: "linear-gradient(90deg, #3B82F6, #6D5CF6)",
+                background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -129,7 +137,7 @@ export default function About() {
               Young Vision,{" "}
               <span
                 style={{
-                  background: "linear-gradient(90deg, #3B82F6, #6D5CF6)",
+                  background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}

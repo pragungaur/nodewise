@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
   {
@@ -42,10 +43,15 @@ const services = [
 ];
 
 export default function Services() {
-  return (
-    <section id="services" style={{ padding: "6rem 2rem" }}>
-      <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
+  const [hovered, setHovered] = useState<number | null>(null);
 
+  return (
+    <section id="services" style={{ padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
+      {/* Animated background orbs — reduced to 2 */}
+      <div style={{ position: "absolute", top: "2rem", left: "3%", width: "30rem", height: "30rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.2) 0%, transparent 65%)", filter: "blur(22px)", animation: "floatDrift 16s ease-in-out infinite", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "2rem", right: "3%", width: "26rem", height: "26rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 65%)", filter: "blur(20px)", animation: "floatY 12s ease-in-out infinite 2s", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -62,7 +68,7 @@ export default function Services() {
               textTransform: "uppercase",
               display: "block",
               marginBottom: "1rem",
-              background: "linear-gradient(90deg, #3B82F6, #6D5CF6)",
+              background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -86,31 +92,49 @@ export default function Services() {
         </motion.div>
 
         {/* Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "1.5rem",
-          }}
-        >
+        <div className="grid-2col">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
+              className="service-card"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
               whileHover={{ y: -8, transition: { duration: 0.25 } }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
               style={{
                 position: "relative",
                 padding: "2rem",
                 borderRadius: "1rem",
-                border: "1px solid rgba(59,130,246,0.18)",
+                border: "1px solid rgba(96,165,250,0.18)",
                 background: "#111827",
                 overflow: "hidden",
                 cursor: "default",
+                transition: "box-shadow 0.25s",
               }}
             >
+              {/* Top border glow on hover */}
+              <AnimatePresence>
+                {hovered === i && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "2px",
+                      background: "linear-gradient(90deg, transparent, #60A5FA, #38BDF8, transparent)",
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+
               {/* Icon */}
               <div
                 style={{
@@ -121,9 +145,9 @@ export default function Services() {
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: "1.25rem",
-                  background: "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(109,92,246,0.15))",
-                  border: "1px solid rgba(109,92,246,0.25)",
-                  color: "#6D5CF6",
+                  background: "linear-gradient(135deg, rgba(96,165,250,0.15), rgba(56,189,248,0.15))",
+                  border: "1px solid rgba(56,189,248,0.25)",
+                  color: "#38BDF8",
                 }}
               >
                 {service.icon}
@@ -152,8 +176,8 @@ export default function Services() {
                   left: 0,
                   right: 0,
                   height: "2px",
-                  background: "linear-gradient(90deg, transparent, #3B82F6, #6D5CF6, transparent)",
-                  opacity: 0.6,
+                  background: "linear-gradient(90deg, transparent, #60A5FA, #38BDF8, transparent)",
+                  opacity: 0.4,
                 }}
               />
             </motion.div>

@@ -84,7 +84,7 @@ export default function Navbar() {
               fontWeight: 600,
               padding: "0.5rem 1.25rem",
               borderRadius: "9999px",
-              background: "linear-gradient(135deg, #3B82F6, #6D5CF6)",
+              background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
               color: "#fff",
               textDecoration: "none",
               whiteSpace: "nowrap",
