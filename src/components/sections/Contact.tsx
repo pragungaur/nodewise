@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { ElegantShape } from "@/components/ui/ElegantShape";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -13,11 +14,27 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" style={{ padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
-      {/* Animated background orbs */}
-      <div style={{ position: "absolute", top: "2rem", left: "3%", width: "26rem", height: "26rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.24) 0%, transparent 65%)", filter: "blur(20px)", animation: "floatDrift 13s ease-in-out infinite", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "2rem", right: "3%", width: "22rem", height: "22rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.22) 0%, transparent 65%)", filter: "blur(18px)", animation: "floatY 15s ease-in-out infinite 6s", pointerEvents: "none" }} />
-      <div style={{ maxWidth: "42rem", margin: "0 auto" }}>
+    <section id="contact" className="section-pad">
+      {/* Section background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <ElegantShape
+          delay={0.2}
+          width={380}
+          height={85}
+          rotate={8}
+          gradient="from-blue-500/[0.08]"
+          className="left-[-4%] bottom-[25%]"
+        />
+        <ElegantShape
+          delay={0.4}
+          width={240}
+          height={58}
+          rotate={-16}
+          gradient="from-blue-400/[0.07]"
+          className="right-[5%] bottom-[20%]"
+        />
+      </div>
+      <div style={{ maxWidth: "42rem", margin: "0 auto", position: "relative", zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +50,7 @@ export default function Contact() {
               textTransform: "uppercase",
               display: "block",
               marginBottom: "1rem",
-              background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
+              background: "linear-gradient(90deg, #3B82F6, #2563EB)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -44,13 +61,13 @@ export default function Contact() {
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
               fontWeight: 700,
-              color: "#F9FAFB",
+              color: "#CBD5E1",
               fontFamily: "var(--font-space-grotesk)",
             }}
           >
             Let&apos;s Build Something
           </h2>
-          <p style={{ marginTop: "1rem", color: "#9CA3AF" }}>
+          <p style={{ marginTop: "1rem", color: "#94A3B8" }}>
             Have a project in mind? We&apos;d love to hear from you.
           </p>
         </motion.div>
@@ -60,15 +77,28 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
+          className="contact-card"
           style={{
             position: "relative",
             borderRadius: "1.5rem",
-            border: "1px solid rgba(59,130,246,0.2)",
+            border: "1px solid rgba(37,99,235,0.2)",
             background: "#111827",
-            padding: "2.5rem",
             overflow: "hidden",
           }}
         >
+          {/* Top border accent */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "2px",
+              background: "linear-gradient(90deg, transparent, #3B82F6, #2563EB, transparent)",
+              opacity: 0.6,
+            }}
+          />
+
           {/* Glow blob */}
           <div
             style={{
@@ -78,9 +108,9 @@ export default function Contact() {
               width: "15rem",
               height: "15rem",
               borderRadius: "50%",
-              background: "#38BDF8",
+              background: "#2563EB",
               filter: "blur(80px)",
-              opacity: 0.08,
+              opacity: 0.07,
               pointerEvents: "none",
             }}
           />
@@ -100,17 +130,17 @@ export default function Contact() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
+                  background: "linear-gradient(135deg, #3B82F6, #2563EB)",
                 }}
               >
-                <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={2}>
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#E2E8F0" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#F9FAFB", fontFamily: "var(--font-space-grotesk)" }}>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#CBD5E1", fontFamily: "var(--font-space-grotesk)" }}>
                 Message Sent!
               </h3>
-              <p style={{ color: "#9CA3AF" }}>Thanks for reaching out. I&apos;ll get back to you soon.</p>
+              <p style={{ color: "#94A3B8" }}>Thanks for reaching out. I&apos;ll get back to you soon.</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
@@ -120,7 +150,7 @@ export default function Contact() {
                   { key: "email", label: "Email", type: "email", placeholder: "your@email.com" },
                 ].map((field) => (
                   <div key={field.key} style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label style={{ fontSize: "0.7rem", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    <label style={{ fontSize: "0.7rem", fontWeight: 600, color: "#94A3B8", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                       {field.label}
                     </label>
                     <input
@@ -133,11 +163,11 @@ export default function Contact() {
                       style={{
                         width: "100%",
                         background: "#0A0A0F",
-                        border: "1px solid rgba(59,130,246,0.25)",
+                        border: "1px solid rgba(37,99,235,0.2)",
                         borderRadius: "0.75rem",
                         padding: "0.75rem 1rem",
                         fontSize: "0.875rem",
-                        color: "#F9FAFB",
+                        color: "#CBD5E1",
                         outline: "none",
                         boxSizing: "border-box",
                         transition: "border-color 0.2s, box-shadow 0.2s",
@@ -148,7 +178,7 @@ export default function Contact() {
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                <label style={{ fontSize: "0.7rem", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                <label style={{ fontSize: "0.7rem", fontWeight: 600, color: "#94A3B8", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Message
                 </label>
                 <textarea
@@ -161,11 +191,11 @@ export default function Contact() {
                   style={{
                     width: "100%",
                     background: "#0A0A0F",
-                    border: "1px solid rgba(59,130,246,0.25)",
+                    border: "1px solid rgba(37,99,235,0.2)",
                     borderRadius: "0.75rem",
                     padding: "0.75rem 1rem",
                     fontSize: "0.875rem",
-                    color: "#F9FAFB",
+                    color: "#CBD5E1",
                     outline: "none",
                     resize: "none",
                     boxSizing: "border-box",
@@ -174,25 +204,45 @@ export default function Contact() {
                 />
               </div>
 
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                style={{
-                  width: "100%",
-                  padding: "1rem",
-                  borderRadius: "0.75rem",
-                  border: "none",
-                  color: "#fff",
-                  fontWeight: 600,
-                  fontSize: "0.9rem",
-                  cursor: "pointer",
-                  background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
-                  boxShadow: "0 0 30px rgba(59,130,246,0.3)",
-                }}
-              >
-                Send Message
-              </motion.button>
+              <div className="send-btn-wrap" style={{ display: "flex", justifyContent: "flex-end", marginTop: "0.25rem" }}>
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.03, boxShadow: "0 0 40px rgba(37,99,235,0.5)" }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
+                    padding: "0.8rem 2rem",
+                    borderRadius: "0.75rem",
+                    border: "1px solid rgba(37,99,235,0.4)",
+                    color: "#E2E8F0",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    cursor: "pointer",
+                    background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
+                    boxShadow: "0 0 24px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.12)",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* Shimmer overlay */}
+                  <span
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%)",
+                      backgroundSize: "200% 100%",
+                      animation: "shimmer-sweep 2.5s linear infinite",
+                    }}
+                  />
+                  Send Message
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                </motion.button>
+              </div>
             </form>
           )}
         </motion.div>

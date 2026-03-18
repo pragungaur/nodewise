@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import ParticleCanvas from "./ParticleCanvas";
-import { BackgroundCircles } from "@/components/ui/background-circles";
+import { ElegantShape } from "@/components/ui/ElegantShape";
 
 const WORDS = [
   "Building the Future with AI.",
@@ -19,7 +18,6 @@ export default function Hero() {
 
   useEffect(() => {
     const target = WORDS[wordIndex];
-
     if (typing) {
       if (displayed.length < target.length) {
         const t = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 55);
@@ -45,12 +43,7 @@ export default function Hero() {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 80,
-        damping: 20,
-        delay,
-      },
+      transition: { type: "spring", stiffness: 80, damping: 20, delay },
     }),
   };
 
@@ -59,60 +52,66 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden"
     >
-      {/* Particle background */}
-      <ParticleCanvas />
-
-      {/* Background circles animation */}
-      <BackgroundCircles />
-
-      {/* Gradient blobs */}
+      {/* Subtle bg gradient overlay */}
       <div
         style={{
           position: "absolute",
-          top: "-5%",
-          left: "-10%",
-          width: "50vw",
-          height: "50vw",
-          maxWidth: "700px",
-          maxHeight: "700px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(96,165,250,0.18) 0%, transparent 70%)",
-          filter: "blur(80px)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "-5%",
-          right: "-10%",
-          width: "40vw",
-          height: "40vw",
-          maxWidth: "600px",
-          maxHeight: "600px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(56,189,248,0.15) 0%, transparent 70%)",
-          filter: "blur(80px)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: "30%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "60vw",
-          height: "30vw",
-          maxWidth: "800px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(96,165,250,0.06) 0%, transparent 60%)",
-          filter: "blur(100px)",
+          inset: 0,
+          background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(59,130,246,0.06) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
 
-      {/* Content */}
+      {/* Floating elegant shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Large shape — top left */}
+        <ElegantShape
+          delay={0.3}
+          width={580}
+          height={130}
+          rotate={12}
+          gradient="from-blue-500/[0.12]"
+          className="left-[-8%] top-[18%]"
+        />
+        {/* Large shape — bottom right */}
+        <ElegantShape
+          delay={0.5}
+          width={480}
+          height={110}
+          rotate={-15}
+          gradient="from-blue-500/[0.12]"
+          className="right-[-4%] top-[68%]"
+        />
+        {/* Medium shape — bottom left */}
+        <ElegantShape
+          delay={0.4}
+          width={280}
+          height={72}
+          rotate={-8}
+          gradient="from-blue-400/[0.10]"
+          className="left-[8%] bottom-[12%]"
+        />
+        {/* Small shape — top right */}
+        <ElegantShape
+          delay={0.6}
+          width={190}
+          height={52}
+          rotate={20}
+          gradient="from-blue-400/[0.10]"
+          className="right-[18%] top-[12%]"
+        />
+        {/* Tiny shape — top center-left */}
+        <ElegantShape
+          delay={0.7}
+          width={140}
+          height={38}
+          rotate={-25}
+          gradient="from-blue-300/[0.08]"
+          className="left-[22%] top-[8%]"
+        />
+      </div>
+
+      {/* Hero content */}
       <div
         style={{ maxWidth: "56rem", margin: "0 auto", width: "100%", padding: "0 1.5rem" }}
         className="relative z-10 flex flex-col items-center gap-6"
@@ -124,13 +123,16 @@ export default function Hero() {
           animate="visible"
           variants={fadeUp}
           style={{
-            border: "1px solid rgba(96,165,250,0.3)",
-            background: "rgba(96,165,250,0.07)",
+            border: "1px solid rgba(37,99,235,0.3)",
+            background: "rgba(37,99,235,0.07)",
           }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm text-[#9CA3AF] backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm backdrop-blur-sm"
         >
-          <span className="w-2 h-2 rounded-full bg-[#60A5FA] animate-pulse" />
-          AI Solutions for the Modern World
+          <span
+            className="w-2 h-2 rounded-full animate-pulse"
+            style={{ background: "#2563EB" }}
+          />
+          <span style={{ color: "#94A3B8" }}>AI Solutions for the Modern World</span>
         </motion.div>
 
         {/* Typewriter headline */}
@@ -142,11 +144,11 @@ export default function Hero() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight"
           style={{ fontFamily: "var(--font-space-grotesk)" }}
         >
-          <span className="text-white">{displayed}</span>
+          <span style={{ color: "#E2E8F0" }}>{displayed}</span>
           <span
             className="animate-pulse"
             style={{
-              background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
+              background: "linear-gradient(90deg, #3B82F6, #2563EB)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -161,7 +163,8 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="max-w-xl text-base sm:text-lg text-[#9CA3AF] leading-relaxed"
+          className="max-w-xl text-base sm:text-lg leading-relaxed"
+          style={{ color: "#94A3B8" }}
         >
           NodeWise crafts intelligent AI systems that help businesses grow faster,
           work smarter, and stay ahead of the curve.
@@ -183,9 +186,9 @@ export default function Hero() {
               gap: "0.5rem",
               padding: "0.875rem 2rem",
               borderRadius: "0.75rem",
-              background: "linear-gradient(135deg, #3B82F6, #60A5FA)",
-              boxShadow: "0 4px 24px rgba(59,130,246,0.45), 0 1px 0 rgba(255,255,255,0.12) inset",
-              color: "#fff",
+              background: "linear-gradient(135deg, #3B82F6, #2563EB)",
+              boxShadow: "0 4px 24px rgba(59,130,246,0.4)",
+              color: "#E2E8F0",
               fontWeight: 600,
               fontSize: "0.9rem",
               letterSpacing: "0.01em",
@@ -194,11 +197,11 @@ export default function Hero() {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(59,130,246,0.55), 0 1px 0 rgba(255,255,255,0.12) inset";
+              e.currentTarget.style.boxShadow = "0 8px 32px rgba(59,130,246,0.5)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 4px 24px rgba(59,130,246,0.45), 0 1px 0 rgba(255,255,255,0.12) inset";
+              e.currentTarget.style.boxShadow = "0 4px 24px rgba(59,130,246,0.4)";
             }}
           >
             Explore Services
@@ -214,9 +217,9 @@ export default function Hero() {
               gap: "0.5rem",
               padding: "0.875rem 2rem",
               borderRadius: "0.75rem",
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(96,165,250,0.35)",
-              color: "#E2E8F0",
+              background: "rgba(37,99,235,0.06)",
+              border: "1px solid rgba(37,99,235,0.3)",
+              color: "#CBD5E1",
               fontWeight: 600,
               fontSize: "0.9rem",
               letterSpacing: "0.01em",
@@ -225,13 +228,13 @@ export default function Hero() {
               transition: "background 0.2s, border-color 0.2s, transform 0.2s",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(96,165,250,0.1)";
-              e.currentTarget.style.borderColor = "rgba(96,165,250,0.6)";
+              e.currentTarget.style.background = "rgba(37,99,235,0.12)";
+              e.currentTarget.style.borderColor = "rgba(37,99,235,0.55)";
               e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-              e.currentTarget.style.borderColor = "rgba(96,165,250,0.35)";
+              e.currentTarget.style.background = "rgba(37,99,235,0.06)";
+              e.currentTarget.style.borderColor = "rgba(37,99,235,0.3)";
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
@@ -247,8 +250,11 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 0.8 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-xs text-[#9CA3AF] tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-[#60A5FA] to-transparent animate-pulse" />
+        <span className="text-xs tracking-widest uppercase" style={{ color: "#94A3B8" }}>Scroll</span>
+        <div
+          className="w-px h-10 animate-pulse"
+          style={{ background: "linear-gradient(to bottom, #3B82F6, transparent)" }}
+        />
       </motion.div>
     </section>
   );

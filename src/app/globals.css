@@ -3,10 +3,10 @@
 :root {
   --color-bg: #0A0A0F;
   --color-surface: #111827;
-  --color-blue: #60A5FA;
-  --color-purple: #38BDF8;
-  --color-text: #F9FAFB;
-  --color-muted: #9CA3AF;
+  --color-blue: #3B82F6;
+  --color-blue-dark: #2563EB;
+  --color-text: #CBD5E1;
+  --color-muted: #94A3B8;
 }
 
 * {
@@ -21,8 +21,8 @@ html {
 
 body {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(96,165,250,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(56,189,248,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(37,99,235,0.07) 0%, transparent 60%),
     #0A0A0F;
   color: var(--color-text);
   overflow-x: hidden;
@@ -34,13 +34,13 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 ::selection {
-  background: #38BDF840;
-  color: #F9FAFB;
+  background: rgba(37,99,235,0.35);
+  color: #E2E8F0;
 }
 
 ::-webkit-scrollbar {
@@ -52,7 +52,7 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #60A5FA, #38BDF8);
+  background: linear-gradient(to bottom, #3B82F6, #2563EB);
   border-radius: 3px;
 }
 
@@ -77,6 +77,11 @@ body::before {
 @keyframes shimmer {
   0%, 100% { opacity: 0.4; transform: scaleX(0.6); }
   50%       { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes shimmer-sweep {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
 }
 
 /* Responsive grid utilities */
@@ -111,11 +116,73 @@ body::before {
 
 /* Input focus ring */
 .input-field:focus {
-  border-color: rgba(96, 165, 250, 0.6) !important;
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12) !important;
+  border-color: rgba(37, 99, 235, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
 }
 
 /* Service card hover shadow */
 .service-card:hover {
-  box-shadow: 0 8px 40px rgba(96, 165, 250, 0.15);
+  box-shadow: 0 8px 40px rgba(37, 99, 235, 0.15);
+}
+
+/* Hide cursor glow on touch devices */
+@media (hover: none) {
+  .cursor-glow { display: none !important; }
+}
+
+/* ── Navbar responsive ── */
+.nav-desktop  { display: flex; }
+.nav-mobile-btn { display: none; }
+
+@media (max-width: 767px) {
+  .nav-desktop  { display: none !important; }
+  .nav-mobile-btn { display: flex !important; }
+}
+
+/* ── Stats card base padding ── */
+.stats-card { padding: 2rem 1.5rem; }
+
+/* ── Contact card base padding ── */
+.contact-card { padding: 2.5rem; }
+
+/* ── Testimonials header margin ── */
+.testimonials-header { margin-bottom: 4rem; }
+
+/* ── Section padding utility ── */
+.section-pad {
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stats section uses slightly less top/bottom */
+.section-pad-sm {
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Mobile overrides ── */
+@media (max-width: 767px) {
+  .section-pad    { padding: 4rem 1.25rem; }
+  .section-pad-sm { padding: 3rem 1.25rem; }
+
+  /* Stats cards — compact on mobile */
+  .stats-card { padding: 1.25rem 1rem !important; }
+
+  /* About: reduce gap when stacked */
+  .grid-about { gap: 2rem !important; }
+
+  /* Contact form card */
+  .contact-card { padding: 1.25rem; }
+
+  /* Contact send button: full width */
+  .send-btn-wrap { justify-content: stretch !important; }
+  .send-btn-wrap button { width: 100% !important; justify-content: center !important; }
+
+  /* Footer */
+  .footer-pad { padding: 3rem 1.25rem 2rem; }
+
+  /* Testimonials header margin */
+  .testimonials-header { margin-bottom: 2rem; }
 }

@@ -22,7 +22,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section style={{ padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
+    <section className="section-pad">
       {/* Single subtle orb */}
       <div
         style={{
@@ -46,7 +46,8 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          style={{ textAlign: "center", marginBottom: "4rem" }}
+          className="testimonials-header"
+          style={{ textAlign: "center" }}
         >
           <span
             style={{

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { ElegantShape } from "@/components/ui/ElegantShape";
 
 const stats = [
   { value: 10, suffix: "+", label: "Projects Delivered" },
@@ -27,16 +28,49 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
     return () => clearInterval(timer);
   }, [inView, target]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return (
+    <span
+      ref={ref}
+      style={{
+        fontSize: "3rem",
+        fontWeight: 700,
+        fontFamily: "var(--font-space-grotesk)",
+        background: "linear-gradient(135deg, #3B82F6, #2563EB)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        lineHeight: 1,
+      }}
+    >
+      {count}{suffix}
+    </span>
+  );
 }
 
 export default function Stats() {
   return (
-    <section style={{ padding: "5rem 2rem", position: "relative", overflow: "hidden" }}>
-      {/* Single background orb */}
-      <div style={{ position: "absolute", top: "-2rem", right: "5%", width: "28rem", height: "28rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.22) 0%, transparent 65%)", filter: "blur(20px)", animation: "floatDrift 14s ease-in-out infinite", pointerEvents: "none" }} />
+    <section className="section-pad-sm">
+      {/* Section background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <ElegantShape
+          delay={0}
+          width={320}
+          height={72}
+          rotate={-10}
+          gradient="from-blue-500/[0.08]"
+          className="right-[2%] top-[10%]"
+        />
+        <ElegantShape
+          delay={0.2}
+          width={200}
+          height={50}
+          rotate={8}
+          gradient="from-blue-500/[0.07]"
+          className="left-[1%] bottom-[15%]"
+        />
+      </div>
+
       <div
-        style={{ maxWidth: "72rem", margin: "0 auto" }}
+        style={{ maxWidth: "72rem", margin: "0 auto", position: "relative", zIndex: 1 }}
         className="grid-4col"
       >
         {stats.map((stat, i) => (
@@ -46,6 +80,7 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.12, ease: "easeOut" }}
+            className="stats-card"
             style={{
               position: "relative",
               display: "flex",
@@ -53,9 +88,8 @@ export default function Stats() {
               alignItems: "center",
               textAlign: "center",
               gap: "0.5rem",
-              padding: "2rem 1.5rem",
               borderRadius: "1rem",
-              border: "1px solid rgba(59,130,246,0.2)",
+              border: "1px solid rgba(37,99,235,0.15)",
               background: "#111827",
               overflow: "hidden",
             }}
@@ -69,25 +103,13 @@ export default function Stats() {
                 right: "20%",
                 height: "2px",
                 borderRadius: "0 0 2px 2px",
-                background: "linear-gradient(90deg, transparent, #60A5FA, #38BDF8, transparent)",
+                background: "linear-gradient(90deg, transparent, #3B82F6, #2563EB, transparent)",
                 animation: "shimmer 3s ease-in-out infinite",
                 animationDelay: `${i * 0.4}s`,
               }}
             />
-            <span
-              style={{
-                fontSize: "3rem",
-                fontWeight: 700,
-                fontFamily: "var(--font-space-grotesk)",
-                background: "linear-gradient(135deg, #60A5FA, #38BDF8)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                lineHeight: 1,
-              }}
-            >
-              <Counter target={stat.value} suffix={stat.suffix} />
-            </span>
-            <span style={{ fontSize: "0.875rem", color: "#9CA3AF", fontWeight: 500 }}>
+            <Counter target={stat.value} suffix={stat.suffix} />
+            <span style={{ fontSize: "0.875rem", color: "#94A3B8", fontWeight: 500 }}>
               {stat.label}
             </span>
           </motion.div>

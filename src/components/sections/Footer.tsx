@@ -1,16 +1,14 @@
 "use client";
 
-import Logo from "./Logo";
+import Logo from "@/components/ui/Logo";
 
 const NAV_LINKS = ["Home", "Services", "About", "Contact"];
 
 export default function Footer() {
   return (
     <footer
-      style={{
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "4rem 2rem 3rem",
-      }}
+      className="footer-pad"
+      style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
     >
       <div
         style={{ maxWidth: "72rem", margin: "0 auto" }}
@@ -74,7 +72,7 @@ export default function Footer() {
             Follow Us
           </p>
           <a
-            href="https://instagram.com/nodewise"
+            href="https://instagram.com/nodewise.in"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -94,7 +92,7 @@ export default function Footer() {
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
             </svg>
-            nodewise
+            nodewise.in
           </a>
         </div>
       </div>

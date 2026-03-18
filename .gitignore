@@ -42,3 +42,16 @@ next-env.d.ts
 
 # dev screenshots
 /screenshots
+
+# IDE / editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# local config
+*.local

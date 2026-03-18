@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ElegantShape } from "@/components/ui/ElegantShape";
 
 const services = [
   {
@@ -46,12 +47,36 @@ export default function Services() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section id="services" style={{ padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
-      {/* Animated background orbs — reduced to 2 */}
-      <div style={{ position: "absolute", top: "2rem", left: "3%", width: "30rem", height: "30rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(96,165,250,0.2) 0%, transparent 65%)", filter: "blur(22px)", animation: "floatDrift 16s ease-in-out infinite", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "2rem", right: "3%", width: "26rem", height: "26rem", borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 65%)", filter: "blur(20px)", animation: "floatY 12s ease-in-out infinite 2s", pointerEvents: "none" }} />
+    <section id="services" className="section-pad">
+      {/* Section background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <ElegantShape
+          delay={0.1}
+          width={500}
+          height={110}
+          rotate={-6}
+          gradient="from-blue-500/[0.09]"
+          className="left-[-6%] top-[8%]"
+        />
+        <ElegantShape
+          delay={0.3}
+          width={360}
+          height={80}
+          rotate={14}
+          gradient="from-blue-500/[0.08]"
+          className="right-[-4%] bottom-[12%]"
+        />
+        <ElegantShape
+          delay={0.5}
+          width={180}
+          height={46}
+          rotate={-20}
+          gradient="from-blue-400/[0.07]"
+          className="right-[25%] top-[5%]"
+        />
+      </div>
 
-      <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
+      <div style={{ maxWidth: "72rem", margin: "0 auto", position: "relative", zIndex: 1 }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -68,7 +93,7 @@ export default function Services() {
               textTransform: "uppercase",
               display: "block",
               marginBottom: "1rem",
-              background: "linear-gradient(90deg, #60A5FA, #38BDF8)",
+              background: "linear-gradient(90deg, #3B82F6, #2563EB)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -79,14 +104,14 @@ export default function Services() {
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
               fontWeight: 700,
-              color: "#F9FAFB",
+              color: "#CBD5E1",
               fontFamily: "var(--font-space-grotesk)",
               lineHeight: 1.1,
             }}
           >
             Our Services
           </h2>
-          <p style={{ marginTop: "1rem", color: "#9CA3AF", maxWidth: "36rem", margin: "1rem auto 0" }}>
+          <p style={{ marginTop: "1rem", color: "#94A3B8", maxWidth: "36rem", margin: "1rem auto 0" }}>
             From concept to deployment — we build AI solutions that actually work for your business.
           </p>
         </motion.div>
@@ -108,7 +133,7 @@ export default function Services() {
                 position: "relative",
                 padding: "2rem",
                 borderRadius: "1rem",
-                border: "1px solid rgba(96,165,250,0.18)",
+                border: "1px solid rgba(37,99,235,0.15)",
                 background: "#111827",
                 overflow: "hidden",
                 cursor: "default",
@@ -129,14 +154,16 @@ export default function Services() {
                       left: 0,
                       right: 0,
                       height: "2px",
-                      background: "linear-gradient(90deg, transparent, #60A5FA, #38BDF8, transparent)",
+                      background: "linear-gradient(90deg, transparent, #3B82F6, #2563EB, transparent)",
                     }}
                   />
                 )}
               </AnimatePresence>
 
               {/* Icon */}
-              <div
+              <motion.div
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.2 }}
                 style={{
                   width: "3.5rem",
                   height: "3.5rem",
@@ -145,26 +172,27 @@ export default function Services() {
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: "1.25rem",
-                  background: "linear-gradient(135deg, rgba(96,165,250,0.15), rgba(56,189,248,0.15))",
-                  border: "1px solid rgba(56,189,248,0.25)",
-                  color: "#38BDF8",
+                  background: "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.15))",
+                  border: `1px solid ${hovered === i ? "rgba(37,99,235,0.45)" : "rgba(37,99,235,0.2)"}`,
+                  color: "#2563EB",
+                  transition: "border-color 0.2s",
                 }}
               >
                 {service.icon}
-              </div>
+              </motion.div>
 
               <h3
                 style={{
                   fontSize: "1.125rem",
                   fontWeight: 700,
-                  color: "#F9FAFB",
+                  color: "#CBD5E1",
                   marginBottom: "0.75rem",
                   fontFamily: "var(--font-space-grotesk)",
                 }}
               >
                 {service.title}
               </h3>
-              <p style={{ fontSize: "0.9rem", color: "#9CA3AF", lineHeight: 1.65 }}>
+              <p style={{ fontSize: "0.9rem", color: "#94A3B8", lineHeight: 1.65 }}>
                 {service.description}
               </p>
 
@@ -176,8 +204,8 @@ export default function Services() {
                   left: 0,
                   right: 0,
                   height: "2px",
-                  background: "linear-gradient(90deg, transparent, #60A5FA, #38BDF8, transparent)",
-                  opacity: 0.4,
+                  background: "linear-gradient(90deg, transparent, #3B82F6, #2563EB, transparent)",
+                  opacity: 0.3,
                 }}
               />
             </motion.div>
