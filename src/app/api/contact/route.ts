@@ -6,19 +6,39 @@ export async function POST(req: Request) {
     return Response.json({ error: "Webhook not configured" }, { status: 500 });
   }
 
+  const body = JSON.stringify({
+    date: new Date().toISOString(),
+    name,
+    email,
+    phone,
+    message: message || "",
+  });
+
+  // Google Apps Script redirects POST requests (302). Node's fetch drops
+  // the body when following a redirect, so we intercept and re-POST manually.
   const res = await fetch(webhookUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      date: new Date().toISOString(),
-      name,
-      email,
-      phone,
-      message: message || "",
-    }),
+    body,
+    redirect: "manual",
   });
 
-  if (!res.ok) {
+  let finalRes: Response;
+  if (res.status === 301 || res.status === 302) {
+    const location = res.headers.get("location");
+    if (!location) {
+      return Response.json({ error: "Redirect with no location" }, { status: 500 });
+    }
+    finalRes = await fetch(location, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+    });
+  } else {
+    finalRes = res;
+  }
+
+  if (!finalRes.ok) {
     return Response.json({ error: "Failed to submit" }, { status: 500 });
   }
 
