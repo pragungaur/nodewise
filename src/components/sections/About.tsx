@@ -268,7 +268,7 @@ export default function About() {
           </div>
 
           {[
-            "Hi, I'm Pragun Gaur — a 13-year-old entrepreneur and the founder of NodeWise. I started this company with one clear goal: to make AI accessible and useful for businesses of all sizes.",
+            "Hi, I'm Pragun Gaur — a 13-year-old entrepreneur and the founder of NodeWise. I started this company at 12 with one clear goal: to make AI accessible and useful for businesses of all sizes.",
             "I believe that age is just a number when it comes to building great things. At NodeWise, we combine youthful creativity with deep technical expertise to deliver AI solutions that genuinely move the needle for our clients.",
             "NodeWise isn't just a company — it's a statement that the future belongs to those bold enough to build it.",
           ].map((text, i) => (
@@ -287,8 +287,8 @@ export default function About() {
           {/* Info grid */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "0.5rem" }}>
             {[
-              { label: "Founded", value: "2024" },
-              { label: "Age at founding", value: "13" },
+              { label: "Founded", value: "2025" },
+              { label: "Age at founding", value: "12" },
               { label: "Focus", value: "AI Solutions" },
               { label: "HQ", value: "India" },
             ].map((item, i) => (
