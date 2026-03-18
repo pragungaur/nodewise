@@ -33,7 +33,7 @@ export async function POST(req: Request) {
 
   const { name, email, phone, message } = await req.json();
 
-  const origin = req.headers.get("origin") ?? "https://nodewise.vercel.app";
+  const origin = req.headers.get("origin") ?? "https://nodewise.in";
 
   const res = await fetch("https://formspree.io/f/xlgpalwy", {
     method: "POST",

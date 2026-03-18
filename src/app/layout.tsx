@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const siteUrl = "https://nodewise.vercel.app";
+const siteUrl = "https://nodewise.in";
 
 export const metadata: Metadata = {
   title: "NodeWise — AI Solutions",
