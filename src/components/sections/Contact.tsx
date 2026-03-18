@@ -21,7 +21,9 @@ export default function Contact() {
 
     // Client-side rate limit: 2 submissions per hour per browser
     const sentRaw = localStorage.getItem("nw_contact_sent");
-    const sentTimes: number[] = sentRaw ? JSON.parse(sentRaw) : [];
+    let parsed: unknown;
+    try { parsed = sentRaw ? JSON.parse(sentRaw) : []; } catch { parsed = []; }
+    const sentTimes: number[] = Array.isArray(parsed) ? parsed : [];
     const oneHourAgo = Date.now() - 60 * 60 * 1000;
     const recent = sentTimes.filter((t) => t > oneHourAgo);
     if (recent.length >= 2) {
