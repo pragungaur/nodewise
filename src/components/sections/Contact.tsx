@@ -13,10 +13,19 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Client-side rate limit: 1 submission per hour per browser
-    const lastSent = localStorage.getItem("nw_contact_sent");
-    if (lastSent && Date.now() - Number(lastSent) < 60 * 60 * 1000) {
-      setError("You already submitted recently. Please wait before trying again.");
+    // Phone must be exactly 10 digits
+    if (!/^\d{10}$/.test(form.phone.replace(/\s+/g, ""))) {
+      setError("Phone number must be exactly 10 digits.");
+      return;
+    }
+
+    // Client-side rate limit: 2 submissions per hour per browser
+    const sentRaw = localStorage.getItem("nw_contact_sent");
+    const sentTimes: number[] = sentRaw ? JSON.parse(sentRaw) : [];
+    const oneHourAgo = Date.now() - 60 * 60 * 1000;
+    const recent = sentTimes.filter((t) => t > oneHourAgo);
+    if (recent.length >= 2) {
+      setError("You've reached the submission limit. Please try again later.");
       return;
     }
 
@@ -29,7 +38,8 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Failed");
-      localStorage.setItem("nw_contact_sent", String(Date.now()));
+      recent.push(Date.now());
+      localStorage.setItem("nw_contact_sent", JSON.stringify(recent));
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
