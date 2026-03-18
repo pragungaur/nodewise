@@ -6,11 +6,27 @@ import { ElegantShape } from "@/components/ui/ElegantShape";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -179,10 +195,35 @@ export default function Contact() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 <label style={{ fontSize: "0.7rem", fontWeight: 600, color: "#94A3B8", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  placeholder="+91 XXXXX XXXXX"
+                  className="input-field"
+                  style={{
+                    width: "100%",
+                    background: "#0A0A0F",
+                    border: "1px solid rgba(37,99,235,0.2)",
+                    borderRadius: "0.75rem",
+                    padding: "0.75rem 1rem",
+                    fontSize: "0.875rem",
+                    color: "#CBD5E1",
+                    outline: "none",
+                    boxSizing: "border-box",
+                    transition: "border-color 0.2s, box-shadow 0.2s",
+                  }}
+                />
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <label style={{ fontSize: "0.7rem", fontWeight: 600, color: "#94A3B8", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Message
                 </label>
                 <textarea
-                  required
                   rows={5}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -203,6 +244,12 @@ export default function Contact() {
                   }}
                 />
               </div>
+
+              {error && (
+                <p style={{ color: "#F87171", fontSize: "0.85rem", textAlign: "center", marginTop: "0.25rem" }}>
+                  {error}
+                </p>
+              )}
 
               <div className="send-btn-wrap" style={{ display: "flex", justifyContent: "flex-end", marginTop: "0.25rem" }}>
                 <motion.button
@@ -236,11 +283,13 @@ export default function Contact() {
                       animation: "shimmer-sweep 2.5s linear infinite",
                     }}
                   />
-                  Send Message
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                    <line x1="22" y1="2" x2="11" y2="13" />
-                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                  </svg>
+                  {loading ? "Sending…" : "Send Message"}
+                  {!loading && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                  )}
                 </motion.button>
               </div>
             </form>
