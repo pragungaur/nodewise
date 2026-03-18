@@ -12,18 +12,24 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side rate limit: 1 submission per hour per browser
+    const lastSent = localStorage.getItem("nw_contact_sent");
+    if (lastSent && Date.now() - Number(lastSent) < 60 * 60 * 1000) {
+      setError("You already submitted recently. Please wait before trying again.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://formspree.io/f/xlgpalwy", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed");
-      }
+      if (!res.ok) throw new Error("Failed");
+      localStorage.setItem("nw_contact_sent", String(Date.now()));
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
